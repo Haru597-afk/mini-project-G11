@@ -19,12 +19,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 BASE_DIR = Path(__file__).parent
-HTML_FILE = BASE_DIR / "Math_Jungle_War.html"
+HTML_FILE = BASE_DIR / "Math_Jungle_War_Shared_Leaderboard.html"
 if not HTML_FILE.exists():
     st.error("ไม่พบไฟล์ Math_Jungle_War_Shared_Leaderboard.html กรุณาวางไฟล์ไว้โฟลเดอร์เดียวกับ app.py")
     st.stop()
 
-# Add these values in Streamlit Cloud → Settings → Secrets.
 try:
     supabase_url = st.secrets.get("SUPABASE_URL", "")
     supabase_key = st.secrets.get("SUPABASE_ANON_KEY", "")

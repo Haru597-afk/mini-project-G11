@@ -2394,11 +2394,11 @@ window.addEventListener('keydown',e=>{
 });
 const MJW_BGM={
   track:null, muted:true, volume:30, audio:null,
-  tracks:{
-    banana:{label:'Studio Waltz 🐒',id:'1pg0Ao1Pkj8i-GHlaTKFKNU7d-0pA3YHL'},
-    shortest:{label:'Lemon Poem 🧩',id:'1sTTgJ9k3arx2SzCb8z3MZqK8leLnR5VL'},
-    vine:{label:'Mirror View 🌿',id:'140sF3HADobZYNrtV2hiarPfcmgll1FFZ'},
-    lobby:{label:'Evening Colors 🌙',id:'1R8x6fzX3vwv7n5kP3h4Vc8D1Xvw-k8JC'}
+  tracks: {
+  banana: {label: 'Studio Waltz 🐒',src: 'song1.mp4'},
+  shortest: {label: 'Lemon Poem 🧩',src: 'song2.mp4'},
+  vine: {label: 'Mirror View 🌿',src: 'song3.mp4'},
+  lobby: {label: 'Evening Colors 🌙',src: 'song4.mp4'}
   },
   directURL(id){return 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id)},
   init(){

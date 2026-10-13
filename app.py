@@ -40,7 +40,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-HTML_FILE = Path(__file__).parent / "Math_Jungle_War_Game2"
+HTML_FILE = Path(__file__).parent / "Math_Jungle_War_Game"
 
 if not HTML_FILE.exists():
     st.error(

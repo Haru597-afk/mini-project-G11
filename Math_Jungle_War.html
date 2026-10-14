@@ -294,20 +294,6 @@ canvas{width:100vw;height:100vh;display:block}
 /* Make the sound-settings button easy to notice and use */
 #mjw-audio-toggle{border:2px solid #16805d;background:#fff;color:#12352a;padding:11px 16px;font-size:15px;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.28)}
 #mjw-audio-toggle:focus-visible,#mjw-audio-toggle:hover{outline:3px solid #ffb703;outline-offset:2px}
-
-/* Flashing red screen border during the final 10 seconds */
-@keyframes mjwCriticalBorderFlash {
-  0%, 100% { box-shadow: inset 0 0 0 0 rgba(255, 0, 0, 0.95), inset 0 0 0 7px rgba(255, 0, 0, 0.95); }
-  50% { box-shadow: inset 0 0 0 3px rgba(255, 0, 0, 0.12), inset 0 0 0 12px rgba(255, 0, 0, 0.95); }
-}
-body.mjw-critical-time::after {
-  content: ""; position: fixed; inset: 0; z-index: 2147483000;
-  pointer-events: none; animation: mjwCriticalBorderFlash .55s steps(2, end) infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  body.mjw-critical-time::after { animation-duration: 1.1s; }
-}
-
 </style>
 </head>
 <body>
@@ -931,9 +917,6 @@ function resizeCanvas(){
   GRID_SIZE=Math.max(28,Math.floor(W/38));originX=W/2;originY=H/2;
   initStage();
 }
-function mjwSetCriticalTime(active){
-  document.body.classList.toggle('mjw-critical-time', !!active);
-}
 function startTimer(){
   stopTimer();
   const tb=document.getElementById('timer-indicator');
@@ -942,7 +925,6 @@ function startTimer(){
     timeLeft=15;tb.style.display='block';tb.innerText=`⏱️ ${timeLeft}s`;
     timerInterval=setInterval(()=>{
       timeLeft--;tb.innerText=`⏱️ ${timeLeft}s`;
-      mjwSetCriticalTime(timeLeft<=10&&timeLeft>0);
       if(timeLeft<=10&&timeLeft>0&&window.MJW_SFX)MJW_SFX.countdown(timeLeft);
       if(timeLeft<=5)tb.classList.add('urgent');
       if(timeLeft<=0){
@@ -952,7 +934,7 @@ function startTimer(){
     },1000);
   }else tb.style.display='none';
 }
-function stopTimer(){if(timerInterval)clearInterval(timerInterval);mjwSetCriticalTime(false)}
+function stopTimer(){if(timerInterval)clearInterval(timerInterval)}
 function updateAttemptsUI(){
   const b=document.getElementById('attempts-indicator');
   if(gameMode==='hard'){b.style.display='block';b.innerText=`🎯 โอกาส: ${hardAttemptsLeft}/3`}else b.style.display='none';
@@ -1971,7 +1953,7 @@ function g2HopDistance(edgeMap){
   }
   return dist[G2.end];
 }
-function g2StopTimer(){if(G2.timerInterval!==null){clearInterval(G2.timerInterval);G2.timerInterval=null}mjwSetCriticalTime(false)}
+function g2StopTimer(){if(G2.timerInterval!==null){clearInterval(G2.timerInterval);G2.timerInterval=null}}
 function g2UpdateTimerBadge(){
   const badge=document.getElementById('g2-timer');if(!badge)return;
   badge.textContent=`⏱️ เหลือ ${Math.max(0,G2.timeLeft)} วิ`;
@@ -1982,7 +1964,6 @@ function g2StartTimer(){
   G2.timerInterval=setInterval(()=>{
     const elapsed=Date.now()-G2.timerStartedAt;
     G2.timeLeft=Math.max(0,Math.ceil((G2.timeLimitMs-elapsed)/1000));
-    mjwSetCriticalTime(G2.timeLeft<=10&&G2.timeLeft>0);
     if(G2.timeLeft<=10&&G2.timeLeft>0&&G2.timeLeft!==G2.lastCountdown){G2.lastCountdown=G2.timeLeft;if(window.MJW_SFX)MJW_SFX.countdown(G2.timeLeft)}
     g2UpdateTimerBadge();
     if(elapsed>=G2.timeLimitMs)g2TimeoutRound();
@@ -2336,7 +2317,6 @@ function g3NewStage(){
 function g3TimeLimit(){return ({easy:30,medium:45,hard:60}[G3.mode]||30)}
 function g3Timer(){
   clearInterval(G3.tick);
-  mjwSetCriticalTime(false);
   const lab=document.getElementById('g3-time');
   const limit=g3TimeLimit();
   G3.lastCountdown=limit;
@@ -2344,7 +2324,6 @@ function g3Timer(){
     if(G3.state!=='play')return;
     const remaining=Math.max(0,Math.ceil((limit*1000-(performance.now()-G3.t0))/1000));
     lab.innerText=`⏱️ ${remaining}s`;
-    mjwSetCriticalTime(remaining<=10&&remaining>0);
     if(remaining<=10&&remaining>0&&remaining!==G3.lastCountdown){G3.lastCountdown=remaining;if(window.MJW_SFX)MJW_SFX.countdown(remaining)}
     if(remaining<=0)g3Timeout();
   };
@@ -2352,7 +2331,6 @@ function g3Timer(){
 }
 function g3Timeout(){
   if(G3.state!=='play')return;
-  mjwSetCriticalTime(false);
   clearInterval(G3.tick);
   G3.elapsed=(performance.now()-G3.t0)/1000;
   G3.state='timedout';G3.reveal=false;

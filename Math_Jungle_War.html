@@ -167,8 +167,8 @@ canvas{width:100vw;height:100vh;display:block}
 .g2-controls select,.g2-controls input{background:#f8fafc;color:#0f172a;border:1px solid #94a3b8;border-radius:9px;padding:8px;max-width:100%}
 .g2-btn{border:2px solid #ffcb69;border-radius:12px;padding:9px 13px;font-weight:800;cursor:pointer;background:#ffcb69;color:#283618;box-shadow:0 4px 0 #bc6c25}.g2-btn.secondary{background:#cad2c5;color:#283618;border-color:#84a98c;box-shadow:0 4px 0 #52796f}.g2-btn.green{background:#95d5b2;color:#1b4332;border-color:#74c69d;box-shadow:0 4px 0 #40916c}
 .g2-content{width:min(1750px,100%);margin:0 auto;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:12px;flex:1}
-.g2-board{min-width:0;background:#f4f1de;border:3px solid #52796f;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px #0005;align-self:start}
-#g2-graph{display:block;width:100%;height:auto;min-height:420px;touch-action:manipulation}
+.g2-board{min-width:0;width:min(100%,820px);background:#f4f1de;border:3px solid #52796f;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px #0005;align-self:start}
+#g2-graph{display:block;width:100%;height:auto;max-height:500px;min-height:0;touch-action:manipulation}
 .g2-side{display:flex;flex-direction:column;gap:12px}.g2-panel{background:rgba(27,67,50,.94);border:1px solid #52796f;border-radius:16px;padding:13px;line-height:1.6;box-shadow:0 5px 15px #0002}
 .g2-panel h3{margin:0 0 7px;font-size:16px;color:#ffcb69}.g2-stat{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #475569;padding:5px 0;font-size:14px}.g2-stat:last-child{border-bottom:0}.g2-path{overflow-wrap:anywhere;color:#b7e4c7;font-size:13px;line-height:1.8}.g2-status{border-radius:12px;padding:10px;background:#081c15;color:#f4f1de;border:1px solid #52796f;font-size:14px}.g2-table{width:100%;border-collapse:collapse;font-size:12px}.g2-table td,.g2-table th{padding:5px;border-bottom:1px solid #475569;text-align:left}.g2-legend{display:flex;gap:12px;flex-wrap:wrap;padding:8px 12px;color:#283618;font-size:12px;background:#d8e2dc}.g2-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
 .g2-edge{stroke:#8b6f47;stroke-width:4;stroke-linecap:round;opacity:.9}.g2-edge.used{stroke:#2d6a4f;stroke-width:8;filter:drop-shadow(0 1px 1px #fff)}.g2-edge.solution{stroke:#f59e0b;stroke-width:9;stroke-dasharray:13 7;opacity:1;filter:drop-shadow(0 1px 2px #fff)}.g2-weight{font-size:23px;font-weight:900;fill:#234b35;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;text-anchor:middle;dominant-baseline:central;pointer-events:none}.g2-weight-bg{fill:#fffdf4;fill-opacity:.94;stroke:#d8dfc8;stroke-width:1;pointer-events:none;transition:fill .15s,stroke .15s,stroke-width .15s}.g2-weight-bg.selected{fill:#b7e4c7;fill-opacity:1;stroke:#2d6a4f;stroke-width:2}.g2-weight.selected{fill:#174a32;stroke:#fff;stroke-width:3.5px}.g2-node{cursor:pointer;outline:none}.g2-node .g2-node-icon{font-size:38px;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#f4f1de;stroke-width:2px}.g2-node .g2-node-label{font-size:15px;font-weight:900;fill:#283618;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#f4f1de;stroke-width:3px;stroke-linejoin:round}.g2-node .g2-node-halo{fill:#fff8;stroke:#52796f;stroke-width:2;transition:fill .15s,r .15s}.g2-node.start .g2-node-halo{fill:#95d5b2;stroke:#2d6a4f;stroke-width:3}.g2-node.solution .g2-node-halo{stroke:#f59e0b;stroke-width:4;filter:drop-shadow(0 1px 2px #f59e0b)}.g2-node.finish .g2-node-halo{fill:#ffcb69;stroke:#bc6c25;stroke-width:3}.g2-node.visited .g2-node-halo{fill:#b7e4c7;stroke:#40916c}.g2-node.neighbor .g2-node-halo{fill:#fff3bf;stroke:#bc6c25;stroke-width:4}.g2-node:hover .g2-node-halo{r:28}.g2-node:focus .g2-node-halo{stroke:#ffcb69;stroke-width:5}
@@ -179,7 +179,7 @@ canvas{width:100vw;height:100vh;display:block}
 @keyframes g2NextPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 @keyframes g2TimerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 @media(max-width:800px){.g2-head-stats{width:100%;order:2}.g2-controls{order:3}.g2-live-badge{padding:6px 10px}.g2-live-badge.score{font-size:15px}}
-@media(max-width:800px){.g2-content{grid-template-columns:1fr;padding:8px}.g2-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.g2-head{padding:10px}.g2-controls{width:100%}.g2-controls label{font-size:12px}.g2-controls select{max-width:46vw}#g2-graph{min-height:360px}}
+@media(max-width:800px){.g2-content{grid-template-columns:1fr;padding:8px}.g2-board{width:min(100%,680px);margin-inline:auto}.g2-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.g2-head{padding:10px}.g2-controls{width:100%}.g2-controls label{font-size:12px}.g2-controls select{max-width:46vw}#g2-graph{max-height:360px;min-height:0}}
 .g2-mode-menu{background:radial-gradient(circle,#1b4332 0%,#081c15 100%);padding:20px;}
 .g2-mode-menu::before,.g2-mode-menu::after{content:none;}
 .g2-mode-container{max-width:360px;gap:10px;}
@@ -657,7 +657,9 @@ const GAMES=[
 let currentGameId='jungle',lbGame='jungle';
 const MJW_SHARED={url:__MJW_SUPABASE_URL_JSON__,key:__MJW_SUPABASE_ANON_KEY_JSON__};
 const mjwCloudReady=()=>!!(MJW_SHARED.url&&MJW_SHARED.key&&/^https:\/\//i.test(MJW_SHARED.url));
-const lbKey=id=>'mjw_lb_'+id;
+const MJW_GAME2_SEASON='game2_reset_20261014';
+const canonicalLeaderboardId=id=>id==='game2'?MJW_GAME2_SEASON:id;
+const lbKey=id=>'mjw_lb_'+canonicalLeaderboardId(id);
 function getRanks(id){
   try{
     if(id==='jungle'&&localStorage.getItem(lbKey('jungle'))===null&&localStorage.getItem('math_war_ranks'))localStorage.setItem(lbKey('jungle'),localStorage.getItem('math_war_ranks'));
@@ -667,6 +669,7 @@ function getRanks(id){
 function saveRanksLocal(id,ranks){try{localStorage.setItem(lbKey(id),JSON.stringify(ranks))}catch(e){}}
 function mjwHeaders(extra={}){return {apikey:MJW_SHARED.key,Authorization:'Bearer '+MJW_SHARED.key,'Content-Type':'application/json',...extra}}
 async function mjwCloudRows(id,name=''){
+  id=canonicalLeaderboardId(id);
   if(!mjwCloudReady())return null;
   let q='?select=game_id,username,score,mode,avatar,plays,last_played_mode&game_id=eq.'+encodeURIComponent(id);
   if(name)q+='&username=eq.'+encodeURIComponent(name);
@@ -675,6 +678,7 @@ async function mjwCloudRows(id,name=''){
   return await res.json();
 }
 async function mjwCloudUpsert(id,rank,playIncrement=0){
+  id=canonicalLeaderboardId(id);
   if(!mjwCloudReady()||!rank||!rank.name)return;
   try{
     const rows=await mjwCloudRows(id,rank.name),remote=rows&&rows[0];
@@ -684,6 +688,7 @@ async function mjwCloudUpsert(id,rank,playIncrement=0){
   }catch(e){console.warn('[Math Jungle War] Shared leaderboard unavailable; local score kept.',e)}
 }
 async function refreshSharedLeaderboard(id){
+  id=canonicalLeaderboardId(id);
   if(!mjwCloudReady())return;
   try{
     const remote=await mjwCloudRows(id);if(!remote)return;
@@ -694,6 +699,7 @@ async function refreshSharedLeaderboard(id){
   }catch(e){console.warn('[Math Jungle War] Could not refresh shared leaderboard.',e)}
 }
 function reportScore(id,score,mode){
+  id=canonicalLeaderboardId(id);
   if(!currentUser)return;
   const ranks=getRanks(id),i=ranks.findIndex(r=>r.name===currentUser);let rank;
   if(i!==-1){rank=ranks[i];rank.avatar=currentAvatar;if(!Number.isFinite(rank.plays))rank.plays=0;if(score>(rank.score||0)){rank.score=score;rank.mode=mode}}
@@ -701,6 +707,7 @@ function reportScore(id,score,mode){
   saveRanksLocal(id,ranks);mjwCloudUpsert(id,rank,0);
 }
 function recordPlayed(id,mode){
+  id=canonicalLeaderboardId(id);
   if(!currentUser)return;
   const ranks=getRanks(id),i=ranks.findIndex(r=>r.name===currentUser);let rank;
   if(i!==-1){rank=ranks[i];rank.plays=(Number(rank.plays)||0)+1;rank.avatar=currentAvatar;if(mode)rank.lastPlayedMode=mode}
@@ -1796,8 +1803,8 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('resize',resizeCanvas);
 const G2={n:8,edges:[],pos:[],start:0,end:7,path:[0],submitted:false,cleared:false,timedOut:false,showSolution:false,revealOptimal:false,solutionPath:[],stage:1,optimal:0,score:0,modeScore:0,difficulty:'medium',timeLimitMs:60000,timeLeft:60,timerStartedAt:0,timerInterval:null};
 const G2_DIFFICULTIES=['easy','medium','hard'];
-function g2ProgressKey(){return 'mjw_game2_progress_'+String(currentUser||'guest').toLowerCase()}
-function g2LoadProgress(){try{const p=JSON.parse(localStorage.getItem(g2ProgressKey())||'{}');return Object.fromEntries(G2_DIFFICULTIES.map(k=>[k,{stage:Math.max(1,Number(p[k]?.stage)||1),score:Math.max(0,Number(p[k]?.score)||0)}]))}catch(e){return Object.fromEntries(G2_DIFFICULTIES.map(k=>[k,{stage:1,score:0}]))}}
+function g2ProgressKey(){return 'mjw_game2_progress_v2_20261014_'+String(currentUser||'guest').toLowerCase()}
+function g2LoadProgress(){try{let raw=localStorage.getItem(g2ProgressKey());if(!raw){const oldKey='mjw_game2_progress_'+String(currentUser||'guest').toLowerCase();const old=JSON.parse(localStorage.getItem(oldKey)||'{}');const fresh=Object.fromEntries(G2_DIFFICULTIES.map(k=>[k,{stage:Math.max(1,Number(old[k]?.stage)||1),score:0}]));localStorage.setItem(g2ProgressKey(),JSON.stringify(fresh));raw=JSON.stringify(fresh)}const p=JSON.parse(raw||'{}');return Object.fromEntries(G2_DIFFICULTIES.map(k=>[k,{stage:Math.max(1,Number(p[k]?.stage)||1),score:Math.max(0,Number(p[k]?.score)||0)}]))}catch(e){return Object.fromEntries(G2_DIFFICULTIES.map(k=>[k,{stage:1,score:0}]))}}
 function g2TotalScore(progress=g2LoadProgress()){return G2_DIFFICULTIES.reduce((sum,k)=>sum+(Number(progress[k]?.score)||0),0)}
 function g2SaveProgress(){const p=g2LoadProgress();p[G2.difficulty]={stage:Math.max(1,G2.stage),score:Math.max(0,G2.modeScore)};try{localStorage.setItem(g2ProgressKey(),JSON.stringify(p))}catch(e){}G2.score=g2TotalScore(p);if(window.MiniGames){MiniGames.reportScore('game2',G2.score,'SHORTEST PATH · รวมทุกระดับ')}const total=document.getElementById('g2-total-score');if(total)total.textContent=`🍌 คะแนนรวมทุกระดับ ${G2.score}`}
 function g2UpdateModeMenu(){const p=g2LoadProgress();for(const k of G2_DIFFICULTIES){const el=document.getElementById('g2-progress-'+k);if(el)el.textContent=`ต่อจากด่าน ${p[k].stage} · คะแนนสะสม ${p[k].score}`}}

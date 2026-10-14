@@ -31,6 +31,13 @@ except Exception:
 if not supabase_url or not supabase_key:
     st.warning("ระบบออนไลน์ยังไม่พร้อม: ตั้งค่า SUPABASE_URL และ SUPABASE_ANON_KEY ใน Streamlit Secrets ก่อนเปิดให้ผู้เล่นเข้าใช้งาน")
 html = HTML_FILE.read_text(encoding="utf-8")
+# Streamlit serves files in ./static at /app/static when enableStaticServing=true.
+# Keep MP3 files in ./static/ so the embedded HTML iframe can fetch them.
+for song_name in ("song1.mp3", "song2.mp3", "song3.mp3", "song4.mp3"):
+    song_path = BASE_DIR / "static" / song_name
+    if not song_path.exists():
+        st.warning(f"ไม่พบไฟล์เพลง {song_name} — กรุณาวางไฟล์ไว้ในโฟลเดอร์ static")
+    html = html.replace(f"src:'{song_name}'", f"src:'/app/static/{song_name}'")
 html = html.replace("__MJW_SUPABASE_URL_JSON__", json.dumps(supabase_url))
 html = html.replace("__MJW_SUPABASE_ANON_KEY_JSON__", json.dumps(supabase_key))
 components.html(html, height=1000, scrolling=False, width=None)

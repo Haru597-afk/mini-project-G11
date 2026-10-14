@@ -418,9 +418,9 @@ canvas{width:100vw;height:100vh;display:block}
     <div class="menu-title">JUNGLE SHORTEST PATH 🍌</div>
     <div class="menu-subtitle">เลือกความยาก แล้วแข่งหาเส้นทางที่สั้นที่สุด!</div>
     <div class="mode-container g2-mode-container">
-      <button class="mode-btn btn-easy" onclick="g2ChooseDifficulty('easy')">🟢 ง่าย (Easy)<br><span style="font-size:11px;font-weight:normal">สุ่ม 4–6 โหนด · เวลา 60 วินาที · คะแนน +2 ถึง +10 ต่อด่าน</span><span id="g2-progress-easy" style="display:block;margin-top:5px">ต่อจากด่าน 1 · คะแนนสะสม 0</span></button>
-      <button class="mode-btn btn-medium" onclick="g2ChooseDifficulty('medium')">🟡 กลาง (Medium)<br><span style="font-size:11px;font-weight:normal">สุ่ม 5–7 โหนด · เวลา 60 วินาที · คะแนน +3 ถึง +15 ต่อด่าน</span><span id="g2-progress-medium" style="display:block;margin-top:5px">ต่อจากด่าน 1 · คะแนนสะสม 0</span></button>
-      <button class="mode-btn btn-hard" onclick="g2ChooseDifficulty('hard')">🔴 ยาก (Hard)<br><span style="font-size:11px;font-weight:normal">สุ่ม 6–9 โหนด · เวลา 60 วินาที · คะแนน +10 ถึง +30 ต่อด่าน</span><span id="g2-progress-hard" style="display:block;margin-top:5px">ต่อจากด่าน 1 · คะแนนสะสม 0</span></button>
+      <button class="mode-btn btn-easy" onclick="g2ChooseDifficulty('easy')">🟢 ง่าย (Easy)<br><span style="font-size:11px;font-weight:normal">สุ่ม 5–6 โหนด · เวลา 60 วินาที · คะแนน +2 ถึง +10 ต่อด่าน</span><span id="g2-progress-easy" style="display:block;margin-top:5px">ต่อจากด่าน 1 · คะแนนสะสม 0</span></button>
+      <button class="mode-btn btn-medium" onclick="g2ChooseDifficulty('medium')">🟡 กลาง (Medium)<br><span style="font-size:11px;font-weight:normal">สุ่ม 6–7 โหนด · เวลา 60 วินาที · คะแนน +3 ถึง +15 ต่อด่าน</span><span id="g2-progress-medium" style="display:block;margin-top:5px">ต่อจากด่าน 1 · คะแนนสะสม 0</span></button>
+      <button class="mode-btn btn-hard" onclick="g2ChooseDifficulty('hard')">🔴 ยาก (Hard)<br><span style="font-size:11px;font-weight:normal">สุ่ม 7–9 โหนด · เวลา 60 วินาที · คะแนน +10 ถึง +30 ต่อด่าน</span><span id="g2-progress-hard" style="display:block;margin-top:5px">ต่อจากด่าน 1 · คะแนนสะสม 0</span></button>
       <button class="primary-btn" onclick="openLeaderboard('game2')" style="background:#52b788;color:#fff;box-shadow:0 4px 0 #2d6a4f;margin-top:4px">🏆 ดูคะแนนและอันดับ (Leaderboard)</button>
       <button class="action-icon-btn" onclick="backToHub()" style="background:#ffd166;color:#582f0e;margin-top:4px">🎮 กลับหน้ารวมเกม</button>
     </div>
@@ -523,6 +523,21 @@ canvas{width:100vw;height:100vh;display:block}
   </div>
 </div>
 <script>
+// One-time full scoreboard reset for this browser. Keeps accounts, PINs, comments, avatars and volume settings.
+(function mjwOneTimeScoreboardReset(){
+  const resetKey='mjw_full_scoreboard_reset_20261014_v1';
+  try {
+    if(localStorage.getItem(resetKey)==='done') return;
+    const remove=[];
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i);
+      if(!k) continue;
+      if(k.startsWith('mjw_lb_') || k.startsWith('mjw_game2_progress_') || k.startsWith('math_war_score_') || k.startsWith('math_war_scores_') || k.startsWith('math_war_rank_')) remove.push(k);
+    }
+    remove.forEach(k=>localStorage.removeItem(k));
+    localStorage.setItem(resetKey,'done');
+  } catch(e) { console.warn('[Math Jungle War] Local scoreboard reset could not complete.',e); }
+})();
 function togglePinVisibility(){
   const input=document.getElementById('pin-input');
   const button=document.getElementById('pin-visibility-toggle');
@@ -707,7 +722,7 @@ let currentGameId='jungle',lbGame='jungle';
 const MJW_SHARED={url:__MJW_SUPABASE_URL_JSON__,key:__MJW_SUPABASE_ANON_KEY_JSON__};
 const mjwCloudReady=()=>!!(MJW_SHARED.url&&MJW_SHARED.key&&/^https:\/\//i.test(MJW_SHARED.url));
 // Fresh scoreboard season for every game. All previous local score namespaces stay out of the new boards.
-const MJW_SCOREBOARD_SEASON='fresh_start_20261014_v6';
+const MJW_SCOREBOARD_SEASON='fresh_start_20261014_v7';
 const MJW_LEADERBOARD_IDS={
   jungle:'jungle_'+MJW_SCOREBOARD_SEASON,
   game2:'game2_'+MJW_SCOREBOARD_SEASON,
@@ -734,7 +749,7 @@ async function mjwCloudUpsert(id,rank,playIncrement=0){
   if(!mjwCloudReady()||!rank||!rank.name)return;
   try{
     const rows=await mjwCloudRows(id,rank.name),remote=rows&&rows[0];
-    const payload={game_id:id,username:rank.name,score:Math.max(Number(rank.score)||0,Number(remote&&remote.score)||0),mode:(Number(rank.score)||0)>=(Number(remote&&remote.score)||0)?(rank.mode||'-'):(remote.mode||'-'),avatar:rank.avatar||((remote&&remote.avatar)||''),plays:id===canonicalLeaderboardId('game2')?(Number(rank.plays)||0):(playIncrement>0?(Number(remote&&remote.plays)||0)+playIncrement:Math.max(Number(rank.plays)||0,Number(remote&&remote.plays)||0)),last_played_mode:rank.lastPlayedMode||rank.mode||(remote&&remote.last_played_mode)||'-',updated_at:new Date().toISOString()};
+    const payload={game_id:id,username:rank.name,score:Math.max(Number(rank.score)||0,Number(remote&&remote.score)||0),mode:(Number(rank.score)||0)>=(Number(remote&&remote.score)||0)?(rank.mode||'-'):(remote.mode||'-'),avatar:rank.avatar||((remote&&remote.avatar)||''),plays:id===canonicalLeaderboardId('game2')?Math.max(Number(rank.plays)||0,Number(remote&&remote.plays)||0):(playIncrement>0?(Number(remote&&remote.plays)||0)+playIncrement:Math.max(Number(rank.plays)||0,Number(remote&&remote.plays)||0)),last_played_mode:rank.lastPlayedMode||rank.mode||(remote&&remote.last_played_mode)||'-',updated_at:new Date().toISOString()};
     const res=await fetch(MJW_SHARED.url.replace(/\/$/,'')+'/rest/v1/mjw_leaderboard?on_conflict=game_id,username',{method:'POST',headers:mjwHeaders({Prefer:'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify(payload)});
     if(!res.ok)throw new Error('Leaderboard save failed');
   }catch(e){console.warn('[Math Jungle War] Shared leaderboard unavailable; local score kept.',e)}
@@ -1884,7 +1899,7 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('resize',resizeCanvas);
 const G2={n:8,edges:[],pos:[],start:0,end:7,path:[0],submitted:false,cleared:false,timedOut:false,showSolution:false,revealOptimal:false,solutionPath:[],stage:1,optimal:0,score:0,modeScore:0,difficulty:'medium',timeLimitMs:60000,timeLeft:60,timerStartedAt:0,timerInterval:null,lastCountdown:60};
 const G2_DIFFICULTIES=['easy','medium','hard'];
-function g2ProgressKey(){return 'mjw_game2_progress_fresh_start_20261014_v5_'+String(currentUser||'guest').toLowerCase()}
+function g2ProgressKey(){return 'mjw_game2_progress_fresh_start_20261014_v6_'+String(currentUser||'guest').toLowerCase()}
 function g2LoadProgress(){
   const fresh=()=>Object.fromEntries(G2_DIFFICULTIES.map(k=>[k,{stage:1,score:0}]));
   try{
@@ -1955,6 +1970,9 @@ function g2StartTimer(){
   },100);
 }
 function g2ShowAnswer(heading){
+  const verifiedAnswer=g2ShortestPath();
+  G2.optimal=verifiedAnswer.distance;
+  G2.solutionPath=verifiedAnswer.path;
   const box=document.getElementById('g2-answer');if(!box)return;
   const route=G2.solutionPath.length?G2.solutionPath.join(' → '):'ไม่พบเส้นทาง';
   const weights=[];
@@ -1984,7 +2002,7 @@ function g2ChooseDifficulty(level){
   document.getElementById('g2-game-content').style.display='grid';
   document.getElementById('g2-difficulty').value=level;document.getElementById('g2-difficulty').disabled=true;
   const count=document.getElementById('g2-count');
-  const ranges={easy:[4,6],medium:[5,7],hard:[6,9]};
+  const ranges={easy:[5,6],medium:[6,7],hard:[7,9]};
   count.min=ranges[level][0];count.max=ranges[level][1];count.readOnly=true;
   document.getElementById('g2-type').disabled=true;
   g2NewGame();
@@ -1994,7 +2012,7 @@ function g2ChooseDifficulty(level){
 function g2DifficultyChange(){g2ChooseDifficulty(document.getElementById('g2-difficulty').value)}
 function g2NewGame(){
   g2StopTimer();g2SaveProgress();
-  const ranges={easy:[4,6],medium:[5,7],hard:[6,9]};
+  const ranges={easy:[5,6],medium:[6,7],hard:[7,9]};
   const [minNodes,maxNodes]=ranges[G2.difficulty]||ranges.medium;
   const n=g2RandInt(minNodes,maxNodes);
   const count=document.getElementById('g2-count');count.min=minNodes;count.max=maxNodes;count.value=n;count.readOnly=true;
@@ -2036,7 +2054,7 @@ function g2NewGame(){
   const difficultyNames={easy:'ง่าย',medium:'กลาง',hard:'ยาก'};
   g2Status(`ด่าน ${G2.stage} · ระดับ${difficultyNames[G2.difficulty]} · สุ่ม ${n} โหนด (${minNodes}–${maxNodes}) (${type}) และมีหลายเส้นทางให้เลือกแล้ว! มีเวลา ${60} วินาที แบ่งคะแนนเป็น 5 ช่วง ช่วงละ 12 วินาที`);
 }
-function g2Open(){g2StopTimer();document.getElementById('g2-difficulty').disabled=false;document.getElementById('g2').style.display='flex';document.getElementById('g2-mode-menu').style.display='flex';document.getElementById('g2-game-head').style.display='none';document.getElementById('g2-game-content').style.display='none';g2UpdateModeMenu();const p=g2LoadProgress();G2.score=g2TotalScore(p);const badge=document.getElementById('g2-total-score');if(badge)badge.textContent=`🍌 คะแนนรวมทุกระดับ ${G2.score}`;G2.cleared=false;G2.timedOut=false;}
+function g2Open(){g2StopTimer();document.getElementById('g2-difficulty').disabled=false;document.getElementById('g2').style.display='flex';document.getElementById('g2-mode-menu').style.display='flex';document.getElementById('g2-game-head').style.display='none';document.getElementById('g2-game-content').style.display='none';g2UpdateModeMenu();const p=g2LoadProgress();G2.score=g2TotalScore(p);const completedRounds=G2_DIFFICULTIES.reduce((sum,k)=>sum+Math.max(0,(Number(p[k]?.stage)||1)-1),0);if(window.MiniGames){MiniGames.setPlayCount('game2',completedRounds,'SHORTEST PATH · รวมทุกระดับ');MiniGames.reportScore('game2',G2.score,'SHORTEST PATH · รวมทุกระดับ')}const badge=document.getElementById('g2-total-score');if(badge)badge.textContent=`🍌 คะแนนรวมทุกระดับ ${G2.score}`;G2.cleared=false;G2.timedOut=false;}
 function g2Close(){g2SaveProgress();g2StopTimer();document.getElementById('g2').style.display='none'}
 window.addEventListener('beforeunload',()=>{if(currentUser&&document.getElementById('g2')?.style.display==='flex'&&document.getElementById('g2-game-head')?.style.display!=='none')g2SaveProgress()});
 function g2NextStage(){
@@ -2045,7 +2063,7 @@ function g2NextStage(){
   g2NewGame();
   g2Status(`🚀 เริ่มด่าน ${G2.stage} แล้ว! มีเวลา ${60} วินาทีเพื่อรับคะแนน (5 ช่วง ช่วงละ 12 วินาที)`);
 }
-function g2PathDistance(){let sum=0;for(let i=1;i<G2.path.length;i++){const e=G2.edges.find(e=>g2Key(e.u,e.v)===g2Key(G2.path[i-1],G2.path[i]));if(e)sum+=e.weight}return sum}
+function g2PathDistance(){let sum=0;for(let i=1;i<G2.path.length;i++){const e=G2.edges.find(e=>g2Key(e.u,e.v)===g2Key(G2.path[i-1],G2.path[i]));if(!e)return Infinity;sum+=Number(e.weight)}return sum}
 function g2Neighbors(node){return G2.edges.filter(e=>e.u===node||e.v===node).map(e=>e.u===node?e.v:e.u)}
 function g2Status(t){const el=document.getElementById('g2-status');if(el)el.textContent=t}
 function g2Move(node){if(G2.submitted||G2.path[G2.path.length-1]===G2.end)return;const last=G2.path[G2.path.length-1];if(!g2Neighbors(last).includes(node)){g2Status(`โหนด ${node} ไม่ได้เชื่อมกับโหนด ${last} ลองเลือกโหนดที่มีเส้นเชื่อมสีน้ำเงิน`);return}if(G2.path.length>1&&node===G2.path[G2.path.length-2]){G2.path.pop()}else{if(G2.path.includes(node)){g2Status('โหนดนี้อยู่ในเส้นทางแล้ว ลองเลือกโหนดอื่น');return}G2.path.push(node)}G2.submitted=false;g2Render();if(G2.path.at(-1)===G2.end)g2Status('ถึงปลายทางแล้ว! กด “ตรวจคำตอบ” เพื่อเช็กว่าเป็นเส้นทางที่สั้นที่สุดหรือไม่');else g2Status(`เดินถึงโหนด ${node} แล้ว เลือกโหนดที่เชื่อมต่อเพื่อเดินต่อ`)}
@@ -2132,7 +2150,7 @@ function g2Submit(){
   if(G2.path.at(-1)!==G2.end||G2.submitted)return;
   const elapsedMs=Date.now()-G2.timerStartedAt;
   if(elapsedMs>=G2.timeLimitMs||G2.timeLeft<=0){g2TimeoutRound();return}
-  G2.submitted=true;const dist=g2PathDistance(),optimal=G2.optimal;
+  G2.submitted=true;const verifiedAnswer=g2ShortestPath();G2.optimal=verifiedAnswer.distance;G2.solutionPath=verifiedAnswer.path;const dist=g2PathDistance(),optimal=verifiedAnswer.distance;
   document.getElementById('g2-submit').disabled=true;
   if(dist===optimal){
     const tier=Math.min(4,Math.floor(elapsedMs/12000));

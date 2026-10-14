@@ -278,7 +278,7 @@ canvas{width:100vw;height:100vh;display:block}
   <input id="mjw-sfx-volume" type="range" min="0" max="100" step="1" value="70" oninput="mjwSetSFXVolume(this.value)" style="width:100%;accent-color:#8ee3b0;margin:0">
   <p style="margin:12px 0 0;color:#c5d8cc;font-size:11px;line-height:1.5">ปรับแยกกันได้ และระบบจะจำระดับเสียงไว้ในเบราว์เซอร์นี้</p>
 </div>
-<video id="mjw-bgm-audio" preload="metadata" loop playsinline style="display:none" aria-hidden="true" tabindex="-1"></video>
+<audio id="mjw-bgm-audio" preload="auto" loop style="display:none" aria-hidden="true" tabindex="-1"></audio>
 <div id="game-container">
   <div id="login-screen" class="overlay-screen" style="display:none;">
     <div class="menu-title">ABSOLUTE MONKEY</div>
@@ -2395,12 +2395,11 @@ window.addEventListener('keydown',e=>{
 const MJW_BGM={
   track:null, muted:true, volume:30, audio:null,
   tracks:{
-    banana:{label:'Studio Waltz 🐒',id:'1Wa3BKFhRl1iho9gXactL3kbHKoYlrisg'},
-    shortest:{label:'Lemon Poem 🧩',id:'1j_AZANQiOqS8pLX4pZgcXxs3tKbX3IOL'},
-    vine:{label:'Mirror View 🌿',id:'1LMlBpnhhX1oAZX5WBNCT8E5FGhecu4_A'},
-    lobby:{label:'Evening Colors 🌙',id:'1SgovUc6ursuKF5E6H_ZHkW2Ad0u_NvQh'}
+    banana:{label:'Studio Waltz 🐒',src:'song1.mp3'},
+    shortest:{label:'Lemon Poem 🧩',src:'song2.mp3'},
+    vine:{label:'Mirror View 🌿',src:'song3.mp3'},
+    lobby:{label:'Evening Colors 🌙',src:'song4.mp3'}
   },
-  directURL(id){return 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id)},
   init(){
     if(!this.audio){
       this.audio=document.getElementById('mjw-bgm-audio');
@@ -2419,9 +2418,8 @@ const MJW_BGM={
   },
   loadTrack(id){
     const a=this.init(),t=this.tracks[id];if(!a||!t)return;
-    const url=this.directURL(t.id);
-    if(a.dataset.trackId!==t.id){
-      a.pause();a.src=url;a.dataset.trackId=t.id;a.load();
+    if(a.dataset.trackId!==t.src){
+      a.pause();a.src=t.src;a.dataset.trackId=t.src;a.load();
     }
   },
   setVolume(value){this.volume=Math.max(0,Math.min(100,Number(value)||0));const a=this.init();if(a)a.volume=this.volume/100},

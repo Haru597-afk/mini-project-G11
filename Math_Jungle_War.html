@@ -2394,11 +2394,11 @@ window.addEventListener('keydown',e=>{
 });
 const MJW_BGM={
   track:null, muted:true, volume:30, audio:null,
-  tracks: {
-  banana: {label: 'Studio Waltz 🐒',src: 'song1.mp4'},
-  shortest: {label: 'Lemon Poem 🧩',src: 'song2.mp4'},
-  vine: {label: 'Mirror View 🌿',src: 'song3.mp4'},
-  lobby: {label: 'Evening Colors 🌙',src: 'song4.mp4'}
+  tracks:{
+    banana:{label:'Studio Waltz 🐒',id:'1Wa3BKFhRl1iho9gXactL3kbHKoYlrisg'},
+    shortest:{label:'Lemon Poem 🧩',id:'1j_AZANQiOqS8pLX4pZgcXxs3tKbX3IOL'},
+    vine:{label:'Mirror View 🌿',id:'1LMlBpnhhX1oAZX5WBNCT8E5FGhecu4_A'},
+    lobby:{label:'Evening Colors 🌙',id:'1SgovUc6ursuKF5E6H_ZHkW2Ad0u_NvQh'}
   },
   directURL(id){return 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id)},
   init(){
@@ -2535,6 +2535,11 @@ const MJW_SFX={
       this.chirp(320,920,0,.07,.026,'sine');this.monkey(.055,.022);
     }else if(kind==='disabled'){
       this.chirp(240,125,0,.09,.022,'square');this.chirp(180,130,.08,.08,.018,'triangle');
+    }else if(kind==='select-game'){
+      // Short, brighter ascending chime for selecting a game card.
+      this.chirp(440,660,0,.075,.026,'triangle');
+      this.chirp(660,990,.065,.09,.028,'sine');
+      this.pop(.14,.018);
     }else{
       this.monkey(0,.025);this.chirp(300,760,.035,.085,.022,'sine');this.chirp(760,280,.11,.10,.019,'triangle');this.pop(.15,.015);
     }
@@ -2542,6 +2547,8 @@ const MJW_SFX={
 };
 mjwLoadAudioSettings();
 document.addEventListener('click',function(e){
+  const target=e.target&&e.target.closest&&e.target.closest('.lp-card');
+  if(target){MJW_SFX.play('select-game');return}
   const el=e.target&&e.target.closest&&e.target.closest('button,a,[role="button"],.eq-btn,.g2-node,.mode-btn,.action-icon-btn,.primary-btn');
   if(!el)return;
   if(el.disabled||el.getAttribute('aria-disabled')==='true'){MJW_SFX.play('disabled');return}

@@ -17,11 +17,18 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).resolve().parent
 HTML_FILE = BASE_DIR / "Math_Jungle_War.html"
-if not HTML_FILE.exists():
-    st.error("ไม่พบไฟล์ Math_Jungle_War.html กรุณาวางไฟล์ไว้โฟลเดอร์เดียวกับ app.py")
+if not HTML_FILE.is_file():
+    st.error("ไม่พบไฟล์ Math_Jungle_War.html กรุณาวางไว้โฟลเดอร์เดียวกับ app.py")
     st.stop()
+static_dir = BASE_DIR / "static"
+expected_songs = ("song1.mp3", "song2.mp3", "song3.mp3", "song4.mp3")
+missing = [name for name in expected_songs if not (static_dir / name).is_file()]
+if missing:
+    st.error("ไม่พบไฟล์เพลง: " + ", ".join(missing) + " กรุณาตรวจสอบโฟลเดอร์ static")
+    st.stop()
+
 try:
     supabase_url = st.secrets.get("SUPABASE_URL", "")
     supabase_key = st.secrets.get("SUPABASE_ANON_KEY", "")
@@ -29,7 +36,8 @@ except Exception:
     supabase_url = os.getenv("SUPABASE_URL", "")
     supabase_key = os.getenv("SUPABASE_ANON_KEY", "")
 if not supabase_url or not supabase_key:
-    st.warning("ระบบออนไลน์ยังไม่พร้อม: ตั้งค่า SUPABASE_URL และ SUPABASE_ANON_KEY ใน Streamlit Secrets ก่อนเปิดให้ผู้เล่นเข้าใช้งาน")
+    st.warning("ระบบออนไลน์ยังไม่พร้อม: ตั้งค่า SUPABASE_URL และ SUPABASE_ANON_KEY ใน Streamlit Secrets หากต้องการใช้ leaderboard ออนไลน์")
+
 html = HTML_FILE.read_text(encoding="utf-8")
 html = html.replace("__MJW_SUPABASE_URL_JSON__", json.dumps(supabase_url))
 html = html.replace("__MJW_SUPABASE_ANON_KEY_JSON__", json.dumps(supabase_key))

@@ -177,11 +177,11 @@ canvas{width:100vw;height:100vh;display:block}
 .g2-controls select,.g2-controls input{background:#f8fafc;color:#0f172a;border:1px solid #94a3b8;border-radius:9px;padding:8px;max-width:100%}
 .g2-btn{border:2px solid #ffcb69;border-radius:12px;padding:9px 13px;font-weight:800;cursor:pointer;background:#ffcb69;color:#283618;box-shadow:0 4px 0 #bc6c25}.g2-btn.secondary{background:#cad2c5;color:#283618;border-color:#84a98c;box-shadow:0 4px 0 #52796f}.g2-btn.green{background:#95d5b2;color:#1b4332;border-color:#74c69d;box-shadow:0 4px 0 #40916c}
 .g2-content{width:min(1750px,100%);margin:0 auto;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:12px;flex:1}
-.g2-board{min-width:0;width:min(100%,820px);background:#f4f1de;border:3px solid #52796f;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px #0005;align-self:start}
-#g2-graph{display:block;width:100%;height:auto;max-height:500px;min-height:0;touch-action:manipulation}
+.g2-board{position:relative;min-width:0;width:100%;max-width:none;background:#f4f1de;border:3px solid #52796f;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px #0005;align-self:stretch;display:flex;flex-direction:column}
+#g2-graph{display:block;width:min(100%,820px);height:auto;max-height:500px;min-height:0;touch-action:manipulation;margin:0 auto}
 .g2-side{display:flex;flex-direction:column;gap:12px}.g2-panel{background:rgba(27,67,50,.94);border:1px solid #52796f;border-radius:16px;padding:13px;line-height:1.6;box-shadow:0 5px 15px #0002}
 .g2-panel h3{margin:0 0 7px;font-size:16px;color:#ffcb69}.g2-stat{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #475569;padding:5px 0;font-size:14px}.g2-stat:last-child{border-bottom:0}.g2-path{overflow-wrap:anywhere;color:#b7e4c7;font-size:13px;line-height:1.8}.g2-status{border-radius:12px;padding:10px;background:#081c15;color:#f4f1de;border:1px solid #52796f;font-size:14px}.g2-table{width:100%;border-collapse:collapse;font-size:12px}.g2-table td,.g2-table th{padding:5px;border-bottom:1px solid #475569;text-align:left}.g2-legend{display:flex;gap:12px;flex-wrap:wrap;padding:8px 12px;color:#283618;font-size:12px;background:#d8e2dc}.g2-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
-.g2-edge{stroke:#8b6f47;stroke-width:4;stroke-linecap:round;opacity:.9}.g2-edge.used{stroke:#2d6a4f;stroke-width:8;filter:drop-shadow(0 1px 1px #fff)}.g2-edge.solution{stroke:#f59e0b;stroke-width:9;stroke-dasharray:13 7;opacity:1;filter:drop-shadow(0 1px 2px #fff)}.g2-weight{font-size:25px;font-weight:1000;fill:#123524;text-anchor:middle;dominant-baseline:central;pointer-events:none;letter-spacing:.2px}.g2-weight-bg{fill:#fff;fill-opacity:1;stroke:#234b35;stroke-width:2.5;pointer-events:none;filter:drop-shadow(0 2px 2px #0005);transition:fill .15s,stroke .15s,stroke-width .15s}.g2-weight-bg.selected{fill:#b7f7d1;fill-opacity:1;stroke:#087443;stroke-width:3}.g2-weight.selected{fill:#064b2c}.g2-node{cursor:pointer;outline:none}.g2-node .g2-node-icon{font-size:38px;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#f4f1de;stroke-width:2px}.g2-node .g2-node-label{font-size:15px;font-weight:900;fill:#283618;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#f4f1de;stroke-width:3px;stroke-linejoin:round}.g2-node .g2-node-halo{fill:#fff8;stroke:#52796f;stroke-width:2;transition:fill .15s,r .15s}.g2-node.start .g2-node-halo{fill:#95d5b2;stroke:#2d6a4f;stroke-width:3}.g2-node.solution .g2-node-halo{stroke:#f59e0b;stroke-width:4;filter:drop-shadow(0 1px 2px #f59e0b)}.g2-node.finish .g2-node-halo{fill:#ffcb69;stroke:#bc6c25;stroke-width:3}.g2-node.visited .g2-node-halo{fill:#b7e4c7;stroke:#40916c}.g2-node.neighbor .g2-node-halo{fill:#fff3bf;stroke:#bc6c25;stroke-width:4}.g2-node:hover .g2-node-halo{r:28}.g2-node:focus .g2-node-halo{stroke:#ffcb69;stroke-width:5}
+.g2-edge{stroke:#8b6f47;stroke-width:4;stroke-linecap:round;opacity:.9}.g2-edge.used{stroke:#2d6a4f;stroke-width:8;filter:drop-shadow(0 1px 1px #fff)}.g2-edge.solution{stroke:#f59e0b;stroke-width:9;stroke-dasharray:13 7;opacity:1;filter:drop-shadow(0 1px 2px #fff)}.g2-weight{font-size:25px;font-weight:1000;fill:#123524;text-anchor:middle;dominant-baseline:central;pointer-events:none;letter-spacing:.2px}.g2-weight-bg{fill:#fff;fill-opacity:1;stroke:#234b35;stroke-width:2.5;pointer-events:none;filter:drop-shadow(0 2px 2px #0005);transition:fill .15s,stroke .15s,stroke-width .15s}.g2-weight-bg.selected{fill:#b7f7d1;fill-opacity:1;stroke:#087443;stroke-width:3}.g2-weight.selected{fill:#064b2c}.g2-node{cursor:pointer;outline:none}.g2-zoom-controls{position:absolute;z-index:5;top:9px;right:9px;display:flex;align-items:center;gap:6px;padding:5px 7px;background:rgba(255,255,255,.94);border:1px solid #52796f;border-radius:12px;box-shadow:0 2px 8px #0002}.g2-zoom-controls button{min-width:32px;height:32px;padding:2px 8px;border:1px solid #52796f;border-radius:8px;background:#1b4332;color:#fff;font-size:20px;font-weight:900;cursor:pointer}.g2-zoom-controls button:last-child{font-size:12px}.g2-zoom-controls span{min-width:42px;text-align:center;color:#1b4332;font-size:12px;font-weight:900}.g2-node .g2-node-icon{font-size:50px;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#f4f1de;stroke-width:2px}.g2-node .g2-node-label{font-size:15px;font-weight:900;fill:#283618;text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:#f4f1de;stroke-width:3px;stroke-linejoin:round}.g2-node .g2-node-halo{fill:#fff8;stroke:#52796f;stroke-width:2;transition:fill .15s,r .15s}.g2-node.start .g2-node-halo{fill:#95d5b2;stroke:#2d6a4f;stroke-width:3}.g2-node.solution .g2-node-halo{stroke:#f59e0b;stroke-width:4;filter:drop-shadow(0 1px 2px #f59e0b)}.g2-node.finish .g2-node-halo{fill:#ffcb69;stroke:#bc6c25;stroke-width:3}.g2-node.visited .g2-node-halo{fill:#b7e4c7;stroke:#40916c}.g2-node.neighbor .g2-node-halo{fill:#fff3bf;stroke:#bc6c25;stroke-width:4}.g2-node:hover .g2-node-halo{r:28}.g2-node:focus .g2-node-halo{stroke:#ffcb69;stroke-width:5}
 .g2-head-stats{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .g2-live-badge{display:inline-flex;align-items:center;gap:6px;border:2px solid #74c69d;border-radius:999px;padding:8px 13px;font-size:14px;font-weight:900;background:#163d2c;color:#f8f5e8;white-space:nowrap}
 .g2-live-badge.score{border-color:#ffcb69;background:#fff0c2;color:#603a05;font-size:16px;box-shadow:0 3px 0 #bc6c25}.g2-live-badge.timer{border-color:#74c69d;background:#163d2c}.g2-live-badge.timer.urgent{border-color:#ff8787;background:#7f1d1d;color:#fff;animation:g2TimerPulse .65s ease-in-out infinite}.g2-answer{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#fff0c2;border:2px solid #ffcb69;color:#573b05;font-size:13px;line-height:1.7;overflow-wrap:anywhere}.g2-answer strong{display:block;font-size:14px;margin-bottom:4px}.g2-btn:disabled{opacity:.48;filter:saturate(.55);cursor:not-allowed;box-shadow:none;transform:none}
@@ -189,7 +189,7 @@ canvas{width:100vw;height:100vh;display:block}
 @keyframes g2NextPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 @keyframes g2TimerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 @media(max-width:800px){.g2-head-stats{width:100%;order:2}.g2-controls{order:3}.g2-live-badge{padding:6px 10px}.g2-live-badge.score{font-size:15px}}
-@media(max-width:800px){.g2-content{grid-template-columns:1fr;padding:8px}.g2-board{width:min(100%,680px);margin-inline:auto}.g2-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.g2-head{padding:10px}.g2-controls{width:100%}.g2-controls label{font-size:12px}.g2-controls select{max-width:46vw}#g2-graph{max-height:360px;min-height:0}}
+@media(max-width:800px){.g2-content{grid-template-columns:1fr;padding:8px}.g2-board{width:100%;max-width:none;margin-inline:auto}.g2-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.g2-head{padding:10px}.g2-controls{width:100%}.g2-controls label{font-size:12px}.g2-controls select{max-width:46vw}#g2-graph{width:min(100%,820px);max-height:360px;min-height:0}}
 .g2-mode-menu{background:radial-gradient(circle,#1b4332 0%,#081c15 100%);padding:20px;}
 .g2-mode-menu::before,.g2-mode-menu::after{content:none;}
 .g2-mode-container{max-width:360px;gap:10px;}
@@ -294,6 +294,20 @@ canvas{width:100vw;height:100vh;display:block}
 /* Make the sound-settings button easy to notice and use */
 #mjw-audio-toggle{border:2px solid #16805d;background:#fff;color:#12352a;padding:11px 16px;font-size:15px;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.28)}
 #mjw-audio-toggle:focus-visible,#mjw-audio-toggle:hover{outline:3px solid #ffb703;outline-offset:2px}
+
+/* Flashing red screen border during the final 10 seconds */
+@keyframes mjwCriticalBorderFlash {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(255, 0, 0, 0.95), inset 0 0 0 7px rgba(255, 0, 0, 0.95); }
+  50% { box-shadow: inset 0 0 0 3px rgba(255, 0, 0, 0.12), inset 0 0 0 12px rgba(255, 0, 0, 0.95); }
+}
+body.mjw-critical-time::after {
+  content: ""; position: fixed; inset: 0; z-index: 2147483000;
+  pointer-events: none; animation: mjwCriticalBorderFlash .55s steps(2, end) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.mjw-critical-time::after { animation-duration: 1.1s; }
+}
+
 </style>
 </head>
 <body>
@@ -443,7 +457,7 @@ canvas{width:100vw;height:100vh;display:block}
       </div>
     </div>
     <div class="g2-content" id="g2-game-content">
-      <div class="g2-board"><svg id="g2-graph" viewBox="0 0 900 560" role="img" aria-label="แผนที่ป่าและเส้นทาง"></svg><div class="g2-legend"><span>🐒 จุดเริ่มต้น</span><span>🍌 จุดหมาย</span><span>🌳 ต้นไม้ตามเส้นทาง</span><span>🟡 แตะต้นไม้ที่มีเส้นเชื่อมเพื่อเดินต่อ</span><span>🟠 เส้นสีทอง = เฉลยหลังจบรอบ</span></div></div>
+      <div class="g2-board"><div class="g2-zoom-controls" aria-label="ควบคุมการซูมกราฟ"><button type="button" onclick="g2Zoom(-0.1)" aria-label="ซูมออก">−</button><span id="g2-zoom-level">100%</span><button type="button" onclick="g2Zoom(0.1)" aria-label="ซูมเข้า">+</button><button type="button" onclick="g2Zoom(0,true)" aria-label="คืนค่าซูม">รีเซ็ต</button></div><svg id="g2-graph" viewBox="0 0 900 560" role="img" aria-label="แผนที่ป่าและเส้นทาง"></svg><div class="g2-legend"><span>🐒 จุดเริ่มต้น</span><span>🍌 จุดหมาย</span><span>🌳 ต้นไม้ตามเส้นทาง</span><span>🟡 แตะต้นไม้ที่มีเส้นเชื่อมเพื่อเดินต่อ</span><span>🟠 เส้นสีทอง = เฉลยหลังจบรอบ</span></div></div>
       <aside class="g2-side">
         <div class="g2-panel"><h3>🎯 ภารกิจ</h3><div id="g2-objective">เริ่มที่โหนด 0 แล้วไปยังปลายทางด้วยระยะทางรวมให้น้อยที่สุด</div><div class="g2-status" id="g2-status" style="margin-top:10px">แตะโหนดที่เชื่อมต่อกับตำแหน่งปัจจุบันเพื่อเดินไปต่อ</div><div class="g2-answer" id="g2-answer" aria-live="polite"></div></div>
         <div class="g2-panel"><h3>📊 สถานะการเดินทาง</h3><div class="g2-stat"><span>โหนดปัจจุบัน</span><b id="g2-current">0</b></div><div class="g2-stat"><span>ระยะทางของคุณ</span><b id="g2-distance">0</b></div><div class="g2-stat"><span>จำนวนก้าว</span><b id="g2-steps">0</b></div><div class="g2-stat"><span>คะแนนรวมสะสม</span><b id="g2-score">0</b></div><div class="g2-stat"><span>เส้นทางสั้นที่สุด</span><b id="g2-optimal">?</b></div><div class="g2-path" id="g2-path">0</div><button class="g2-btn green" id="g2-submit" onclick="g2Submit()" style="width:100%;margin-top:10px" disabled>🏁 ตรวจคำตอบ</button></div>
@@ -917,6 +931,9 @@ function resizeCanvas(){
   GRID_SIZE=Math.max(28,Math.floor(W/38));originX=W/2;originY=H/2;
   initStage();
 }
+function mjwSetCriticalTime(active){
+  document.body.classList.toggle('mjw-critical-time', !!active);
+}
 function startTimer(){
   stopTimer();
   const tb=document.getElementById('timer-indicator');
@@ -925,6 +942,7 @@ function startTimer(){
     timeLeft=15;tb.style.display='block';tb.innerText=`⏱️ ${timeLeft}s`;
     timerInterval=setInterval(()=>{
       timeLeft--;tb.innerText=`⏱️ ${timeLeft}s`;
+      mjwSetCriticalTime(timeLeft<=10&&timeLeft>0);
       if(timeLeft<=10&&timeLeft>0&&window.MJW_SFX)MJW_SFX.countdown(timeLeft);
       if(timeLeft<=5)tb.classList.add('urgent');
       if(timeLeft<=0){
@@ -934,7 +952,7 @@ function startTimer(){
     },1000);
   }else tb.style.display='none';
 }
-function stopTimer(){if(timerInterval)clearInterval(timerInterval)}
+function stopTimer(){if(timerInterval)clearInterval(timerInterval);mjwSetCriticalTime(false)}
 function updateAttemptsUI(){
   const b=document.getElementById('attempts-indicator');
   if(gameMode==='hard'){b.style.display='block';b.innerText=`🎯 โอกาส: ${hardAttemptsLeft}/3`}else b.style.display='none';
@@ -1897,7 +1915,7 @@ window.addEventListener('keydown',e=>{
   }
 });
 window.addEventListener('resize',resizeCanvas);
-const G2={n:8,edges:[],pos:[],start:0,end:7,path:[0],submitted:false,cleared:false,timedOut:false,showSolution:false,revealOptimal:false,solutionPath:[],stage:1,optimal:0,score:0,modeScore:0,difficulty:'medium',timeLimitMs:60000,timeLeft:60,timerStartedAt:0,timerInterval:null,lastCountdown:60};
+const G2={n:8,edges:[],pos:[],start:0,end:7,path:[0],submitted:false,cleared:false,timedOut:false,showSolution:false,revealOptimal:false,solutionPath:[],zoom:1,stage:1,optimal:0,score:0,modeScore:0,difficulty:'medium',timeLimitMs:60000,timeLeft:60,timerStartedAt:0,timerInterval:null,lastCountdown:60};
 const G2_DIFFICULTIES=['easy','medium','hard'];
 function g2ProgressKey(){return 'mjw_game2_progress_fresh_start_20261014_v6_'+String(currentUser||'guest').toLowerCase()}
 function g2LoadProgress(){
@@ -1953,7 +1971,7 @@ function g2HopDistance(edgeMap){
   }
   return dist[G2.end];
 }
-function g2StopTimer(){if(G2.timerInterval!==null){clearInterval(G2.timerInterval);G2.timerInterval=null}}
+function g2StopTimer(){if(G2.timerInterval!==null){clearInterval(G2.timerInterval);G2.timerInterval=null}mjwSetCriticalTime(false)}
 function g2UpdateTimerBadge(){
   const badge=document.getElementById('g2-timer');if(!badge)return;
   badge.textContent=`⏱️ เหลือ ${Math.max(0,G2.timeLeft)} วิ`;
@@ -1964,6 +1982,7 @@ function g2StartTimer(){
   G2.timerInterval=setInterval(()=>{
     const elapsed=Date.now()-G2.timerStartedAt;
     G2.timeLeft=Math.max(0,Math.ceil((G2.timeLimitMs-elapsed)/1000));
+    mjwSetCriticalTime(G2.timeLeft<=10&&G2.timeLeft>0);
     if(G2.timeLeft<=10&&G2.timeLeft>0&&G2.timeLeft!==G2.lastCountdown){G2.lastCountdown=G2.timeLeft;if(window.MJW_SFX)MJW_SFX.countdown(G2.timeLeft)}
     g2UpdateTimerBadge();
     if(elapsed>=G2.timeLimitMs)g2TimeoutRound();
@@ -1975,13 +1994,7 @@ function g2ShowAnswer(heading){
   G2.solutionPath=verifiedAnswer.path;
   const box=document.getElementById('g2-answer');if(!box)return;
   const route=G2.solutionPath.length?G2.solutionPath.join(' → '):'ไม่พบเส้นทาง';
-  const weights=[];
-  for(let i=1;i<G2.solutionPath.length;i++){
-    const a=G2.solutionPath[i-1],b=G2.solutionPath[i],edge=G2.edges.find(e=>g2Key(e.u,e.v)===g2Key(a,b));
-    if(edge)weights.push(edge.weight);
-  }
-  const calculation=weights.length?`${weights.join(' + ')} = ${G2.optimal} หน่วย`:'—';
-  box.innerHTML=`<strong>${heading}</strong><div>เส้นทางที่สั้นที่สุดหนึ่งเส้นทาง: ${route}</div><div>ค่าน้ำหนักแต่ละเส้น: ${weights.join(', ')||'—'}</div><div>คำนวณผลรวม: ${calculation}</div><div>เส้นสีทองบนกราฟคือเส้นทางเฉลย</div>`;
+  box.innerHTML=`<strong>${heading}</strong><div>เส้นทางที่ถูกต้อง: ${route}</div><div>เส้นสีทองบนกราฟคือเส้นทางเฉลย</div>`;
   box.style.display='block';
 }
 function g2TimeoutRound(){
@@ -2114,6 +2127,11 @@ function g2WeightLabelLayout(){
   }
   return placements;
 }
+function g2Zoom(delta,reset=false){
+  G2.zoom=reset?1:Math.max(0.7,Math.min(1.8,Math.round((G2.zoom+delta)*10)/10));
+  const label=document.getElementById('g2-zoom-level');if(label)label.textContent=Math.round(G2.zoom*100)+'%';
+  g2Render();
+}
 function g2Render(){
   const svg=document.getElementById('g2-graph');if(!svg)return;
   const current=G2.path.at(-1),neighbors=g2Neighbors(current),used=new Set(G2.path.slice(1).map((v,i)=>g2Key(G2.path[i],v))),solutionEdges=new Set();
@@ -2130,7 +2148,10 @@ function g2Render(){
     const p=G2.pos[i],cls=['g2-node',i===G2.start?'start':'',i===G2.end?'finish':'',G2.path.includes(i)?'visited':'',neighbors.includes(i)&&i!==current?'neighbor':'',G2.showSolution&&G2.solutionPath.includes(i)?'solution':''].filter(Boolean).join(' ');
     out+=`<g class="${cls}" data-node="${i}" tabindex="0" role="button" aria-label="${i===G2.start?'ลิง จุดเริ่มต้น':i===G2.end?'กล้วย จุดหมาย':'ต้นไม้ '+i}"><circle class="g2-node-halo" cx="${p.x}" cy="${p.y}" r="26"/><text class="g2-node-icon" x="${p.x}" y="${p.y-2}">${i===G2.start?'🐒':i===G2.end?'🍌':'🌳'}</text><text class="g2-node-label" x="${p.x}" y="${p.y+35}">${i}</text></g>`;
   }
-  svg.innerHTML=out;
+  const zoom=Math.max(0.7,Math.min(1.8,Number(G2.zoom)||1));
+  const tx=450*(1-zoom),ty=280*(1-zoom);
+  svg.innerHTML=`<g transform="translate(${tx} ${ty}) scale(${zoom})">${out}</g>`;
+  const zoomLabel=document.getElementById('g2-zoom-level');if(zoomLabel)zoomLabel.textContent=Math.round(zoom*100)+'%';
   svg.querySelectorAll('[data-node]').forEach(el=>{el.addEventListener('click',()=>g2Move(Number(el.dataset.node)));el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();g2Move(Number(el.dataset.node))}})});
   document.getElementById('g2-current').textContent=current;
   document.getElementById('g2-distance').textContent=g2PathDistance()+' หน่วย';
@@ -2317,6 +2338,7 @@ function g3NewStage(){
 function g3TimeLimit(){return ({easy:30,medium:45,hard:60}[G3.mode]||30)}
 function g3Timer(){
   clearInterval(G3.tick);
+  mjwSetCriticalTime(false);
   const lab=document.getElementById('g3-time');
   const limit=g3TimeLimit();
   G3.lastCountdown=limit;
@@ -2324,6 +2346,7 @@ function g3Timer(){
     if(G3.state!=='play')return;
     const remaining=Math.max(0,Math.ceil((limit*1000-(performance.now()-G3.t0))/1000));
     lab.innerText=`⏱️ ${remaining}s`;
+    mjwSetCriticalTime(remaining<=10&&remaining>0);
     if(remaining<=10&&remaining>0&&remaining!==G3.lastCountdown){G3.lastCountdown=remaining;if(window.MJW_SFX)MJW_SFX.countdown(remaining)}
     if(remaining<=0)g3Timeout();
   };
@@ -2331,6 +2354,7 @@ function g3Timer(){
 }
 function g3Timeout(){
   if(G3.state!=='play')return;
+  mjwSetCriticalTime(false);
   clearInterval(G3.tick);
   G3.elapsed=(performance.now()-G3.t0)/1000;
   G3.state='timedout';G3.reveal=false;
